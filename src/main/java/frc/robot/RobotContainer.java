@@ -87,8 +87,7 @@ public class RobotContainer {
     // Right Bumper -> Run tube intake in reverse
     m_driverController.rightBumper().whileTrue(m_coralSubSystem.reverseIntakeCommand());
 
-    // B Button -> Elevator/Arm to human player position, set ball intake to stow
-    // when idle
+    // B Button -> Elevator/Arm to human player position, set ball intake to stow when idle
     m_driverController
         .b()
         .onTrue(
@@ -119,11 +118,11 @@ public class RobotContainer {
     m_driverController.start().onTrue(m_robotDrive.zeroHeadingCommand());
   }
 
-  // public double getSimulationTotalCurrentDraw() {
+  public double getSimulationTotalCurrentDraw() {
   // for each subsystem with simulation
-  // return m_coralSubSystem.getSimulationCurrentDraw()
-  //     + m_algaeSubsystem.getSimulationCurrentDraw();
-  // }
+  return m_coralSubSystem.getSimulationCurrentDraw()
+      + m_algaeSubsystem.getSimulationCurrentDraw();
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -144,10 +143,16 @@ public class RobotContainer {
             AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    // Run path following command, then stop at the end.
+    // Run selected auto command
     return middleAutoCommand(config, thetaController);
   }
 
+  /* 
+   *  =========================================================
+   *                AUTONOMOUS ROUTINES
+   *  =========================================================
+   * 
+   */
   public Command middleAutoCommand(TrajectoryConfig config, ProfiledPIDController thetaController) {
 
     // Drive forward command
@@ -207,8 +212,7 @@ public class RobotContainer {
     // Reset odometry to the starting pose of the trajectory.
     m_robotDrive.resetOdometry(forwardTrajectory.getInitialPose());
 
-    // Go forward 88 inches -> Lift algae out of reef -> Shimmy to the right to be in line with
-    // branch -> Score coral -> Stop
+    // Go forward 88 inches -> Lift algae out of reef -> Shimmy to the right to be in line with branch -> Score coral -> Stop
     return forwardCommand.andThen(
         liftAlgaeCommand.andThen(
             shimmyRightCommand.andThen(
