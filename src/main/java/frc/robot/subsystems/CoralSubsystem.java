@@ -5,7 +5,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class CoralSubsystem extends SubsystemBase {
     
     //Initalize SparkMaxes
     private final SparkMax coralIntakeMotor;
@@ -14,7 +14,7 @@ public class IntakeSubsystem extends SubsystemBase {
     private final SparkMax coralRotMotor;
     public static final int kCoralRotMotor = 10;
 
-    public IntakeSubsystem() {
+    public CoralSubsystem() {
         this.coralIntakeMotor = new SparkMax(kCoralIntakeCanId, MotorType.kBrushless);
         this.coralRotMotor = new SparkMax(kCoralRotMotor, MotorType.kBrushless);
     }
@@ -26,6 +26,5 @@ public class IntakeSubsystem extends SubsystemBase {
     public void setCoralRotSpeed(double speed) {
         coralRotMotor.set(speed);
     }
-
 
 }
